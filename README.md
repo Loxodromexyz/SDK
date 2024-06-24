@@ -1,23 +1,30 @@
 ## Install
 Install `loxodrome-sdk` with one of the following package management tools：
 - Use npm:
-npm install loxodrome-sdk
+```shell
+$ npm install loxodrome-sdk
+```
 - Use yarn:
-yarn add loxodrome-sdk
+```shell
+$ yarn add loxodrome-sdk
+```
 - Use pnpm:
-pnpm add loxodrome-sdk
+```shell
+$ pnpm add loxodrome-sdk
+```
 
 ## Introductory class
 Introduce the required classes in the project. For example, use the `Swap` class:
-javascript
+```javascript
 import { Swap } from 'loxodrome-sdk';
-
+```
 ## Initialization
 Before using the `Liquidity` or `Swap` classes, you need to instantiate them and pass in a configuration object.This configuration object should contain all necessary configurations such as provider, network ID, etc. Currently only network ID 4689 is supported.
 
 ### Configuration example 
 Currently using wagmi version 2.5.13 configuration. You need to use wagmi's `config` object in your local project, as shown below:
-javascript
+
+```javascript
 export const config = getDefaultConfig({
     appName: 'Loxodrome',
     projectId: 'e798cef35d6a24a5ddf135ca3b9d57d7',
@@ -33,12 +40,16 @@ export const config = getDefaultConfig({
       // [iotexTestnet.id]: http(),
     },
   })
+```
+
 Please refer to [wagmi documentation](https://wagmi.sh/react/api/createConfig) for specific configuration. 
 
 ### Initialization Classes 
-javascript
+
+```javascript
 import { Liquidity } from 'loxodrome-sdk'
 const liquidity = new Liquidity(config);
+```
 
 ## Liquidity Class
 The `Liquidity` class is used to manage liquidity operations, providing functions for adding liquidity, calculating minimum output amounts, and converting token quantities. 
@@ -59,10 +70,12 @@ This method is used to add mobility to the mobility pool. It requires the follow
 ##### Return value 
 Returns a transaction hash or failure message. 
 ##### Typical example 
-javascript
+
+```javascript
 liquidity.add(accountAddress, tokenA, tokenB, stable, amountInTokenA, slippage)
     .then(hash => console.log('Transaction Hash:', hash))
     .catch(error => console.error('Error adding liquidity:', error));
+```
 
 ## Swap Class
 The Swap class is a tool for performing token exchange operations that supports the exchange of different types of tokens on the blockchain. It utilizes smart contracts to interact with the blockchain in order to implement the token swap function.
@@ -81,7 +94,9 @@ Perform a token exchange.
 ##### Return value
 Returns a transaction hash or failure message. 
 ##### Typical example 
-javascript
+
+```javascript
 swapInstance.swap(address, tokenA, tokenB, amountIn, slippage, deadlineMinutes)
   .then(hash => console.log("Transaction hash:", hash))
   .catch(error => console.error("Trading error:", error));
+```
