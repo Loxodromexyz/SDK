@@ -9,6 +9,7 @@ pnpm add loxodrome-sdk
 
 ## Introductory class
 Introduce the required classes in the project. For example, use the `Swap` class:
+javascript
 import { Swap } from 'loxodrome-sdk';
 
 ## Initialization
@@ -16,6 +17,7 @@ Before using the `Liquidity` or `Swap` classes, you need to instantiate them and
 
 ### Configuration example 
 Currently using wagmi version 2.5.13 configuration. You need to use wagmi's `config` object in your local project, as shown below:
+javascript
 export const config = getDefaultConfig({
     appName: 'Loxodrome',
     projectId: 'e798cef35d6a24a5ddf135ca3b9d57d7',
@@ -34,6 +36,8 @@ export const config = getDefaultConfig({
 Please refer to [wagmi documentation](https://wagmi.sh/react/api/createConfig) for specific configuration. 
 
 ### Initialization Classes 
+javascript
+import { Liquidity } from 'loxodrome-sdk'
 const liquidity = new Liquidity(config);
 
 ## Liquidity Class
@@ -55,6 +59,7 @@ This method is used to add mobility to the mobility pool. It requires the follow
 ##### Return value 
 Returns a transaction hash or failure message. 
 ##### Typical example 
+javascript
 liquidity.add(accountAddress, tokenA, tokenB, stable, amountInTokenA, slippage)
     .then(hash => console.log('Transaction Hash:', hash))
     .catch(error => console.error('Error adding liquidity:', error));
@@ -76,6 +81,7 @@ Perform a token exchange.
 ##### Return value
 Returns a transaction hash or failure message. 
 ##### Typical example 
+javascript
 swapInstance.swap(address, tokenA, tokenB, amountIn, slippage, deadlineMinutes)
-  .then(hash => console.log("Transaction hash :", hash))
-  .catch(error => console.error("Trading error :", error));
+  .then(hash => console.log("Transaction hash:", hash))
+  .catch(error => console.error("Trading error:", error));
