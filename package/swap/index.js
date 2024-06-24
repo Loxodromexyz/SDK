@@ -5,8 +5,6 @@ import WNATIVE from '../../scripts/contracts/abis/TestContract/TWIOTX.sol/TWIOTX
 import { writeContract } from '@wagmi/core';
 import { CONTRACT_ADDRESSES } from '../../scripts/constants/contractAddresses';
 import { fetchAmount, formatDecimals, approve } from '../../scripts/utils'
-
-// import { config } from '../../scripts/config';
 const chainId = 4689
 class Swap {
     contractAddresses;
@@ -29,7 +27,7 @@ class Swap {
         deadlineMinutes
     ) {
         if (tokenA?.toLowerCase() !== this.contractAddresses[chainId].IOTX.toLowerCase()) {
-            const approvehash = await approve(tokenA, amountIn,this.config);
+            const approvehash = await approve(tokenA, amountIn, this.config);
             if (!approvehash) return 'Failed to approve token A';
         }
         const deadline = Math.floor(Date.now() / 1000) + 60 * deadlineMinutes;
@@ -94,7 +92,25 @@ class Swap {
         }
 
     }
-
+    async fetchAmountOut(tokenA, tokenB, amountIn) {
+        try {
+            const data = await fetchAmount(tokenA, tokenB, amountIn, this.config)
+            let record = {
+                amountOut: 0n,
+                path: []
+            }
+            if (data.type === 'worrap') {
+                record.amountOut = amountIn
+                record.path = []
+            } else {
+                record.amountOut = data.swapData?.returnValue?.output?.receiveAmounts?.[1] || 0n
+                record.path = data.swapData?.returnValue?.output?.routes || []
+            }
+            return record
+        } catch (error) {
+            return error
+        }
+    }
     calculateAmountOutMin(amountOut, slippage) {
         const amountOutBigNumber = new BigNumber(amountOut);
         const reduction = amountOutBigNumber.times(slippage / 100);

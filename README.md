@@ -94,3 +94,14 @@ swapInstance.swap(address, tokenA, tokenB, amountIn, slippage, deadlineMinutes)
   .then(hash => console.log("Transaction hash:", hash))
   .catch(error => console.error("Trading error:", error));
 ```
+
+#### `fetchAmountOut(tokenA,tokenB,amountIn)`
+Used to get an estimate of the number of tokens that will be received as a result of the transaction
+##### Parameters
+- `tokenA`: String - The address of the contract whose tokens are being exchanged. 
+- `tokenB`: String - The contract address of the token obtained from the transaction. 
+- `amountIn`: String | BigInt - The number of tokens being exchanged. 
+
+##### Return value
+Returns a amountOut and path or failure message. 
+
