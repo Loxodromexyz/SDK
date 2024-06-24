@@ -25,21 +25,15 @@ Before using the `Liquidity` or `Swap` classes, you need to instantiate them and
 Currently using wagmi version 2.5.13 configuration. You need to use wagmi's `config` object in your local project, as shown below:
 
 ```javascript
-export const config = getDefaultConfig({
-    appName: 'Loxodrome',
-    projectId: 'e798cef35d6a24a5ddf135ca3b9d57d7',
-    wallets: [
-      {
-        groupName: 'Recommended',
-        wallets: [metaMaskWallet],
-      },
-    ],
-    chains: [iotex],
-    transports: {
-      [iotex.id]: http(),
-      // [iotexTestnet.id]: http(),
-    },
-  })
+import { createConfig, http } from '@wagmi/core'
+
+export const config = createConfig({
+  chains: [iotex],
+  transports: {
+    [iotex.id]: http()
+  },
+})
+
 ```
 
 Please refer to [wagmi documentation](https://wagmi.sh/react/api/createConfig) for specific configuration. 
